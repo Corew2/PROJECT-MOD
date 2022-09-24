@@ -1,0 +1,16 @@
+-- 엔티티로 구현한거라 각 월드마다 해당 엔티티가 있어야 함
+-- 마우스 엔티티 레이어가 뒤로 감
+--[[
+Transform컴포넌트 사용, spriteRanderer컴포넌트 사용
+--]]
+local mouse_position = _InputService:GetCursorPosition()
+local world_position = _UILogic:ScreenToWorldPosition(mouse_position)
+_InputService:SetCursorVisible(true)
+
+self.Entity.TransformComponent.WorldPosition.x = mouse_position.x + 206.5		-- MSW에서 오류가 수정되면 상수 삭제
+self.Entity.TransformComponent.WorldPosition.y = mouse_position.y + 240		-- MSW에서 오류가 수정되면 상수 삭제
+self.Entity.TransformComponent.WorldPosition.z = 0
+
+-- self.Entity.UITransformComponent.WorldPosition = Vector3(mouse_position.x + 240, mouse_position.y + 120, self.Entity.UITransformComponent.Position.z) * 0.8
+
+-- Vector3(mousepos.x + 240,mousepos.y + 120 ,self.Entity.UITransformComponent.Position.z) * 0.8
