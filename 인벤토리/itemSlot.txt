@@ -1,0 +1,8 @@
+local Entity = event.Entity
+local Items = event.Items
+self.Entity.Enable = true
+for i,v in ipairs(Items) do
+	self.Entity.SpriteGUIRendererComponent.ImageRUID = v.IconRUID
+	self.itemCount.TextComponent.Text = tostring(v.ItemCount)
+	print(v.IconRUID)
+end

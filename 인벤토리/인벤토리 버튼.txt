@@ -1,0 +1,7 @@
+-- Parameters
+local Entity = event.Entity
+if self.inventory.Enable then
+	self.inventory.Enable = false
+else
+	self.inventory.Enable = true
+end

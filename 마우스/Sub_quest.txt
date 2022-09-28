@@ -1,5 +1,3 @@
-----------------------------------------------------------------------------------------
--- void onBeginPlay
 self.npcTalkData = _DataService:GetTable(self.name)  -- 퀘스트 테이블 가져오기
 --[[
 self.uiNameEntity 			== 이름
@@ -8,13 +6,8 @@ self.uiTalkPanel 				== 전체 창
 self.uiPortraitEntity 			== npc이미지
 self.uiNextButton 			== "다음" 버튼
 self.uistopButton 			== "대화 그만하기" 버튼
-self.name 					== 퀘스트 테이블의 이름
-self.count 					== 대화의 순서
-self.SpriteSize				== npc이미지크기
-self.npcTalkDate				== 퀘스트 테이블
 --]]
-
-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
 --void ShowNextText
 local isNameEnable = false
@@ -49,9 +42,10 @@ end
 
 self.uiNameEntity.Enable = isNameEnable
 self.uiPortraitEntity.Enable = isPortraitEnable
-----------------------------------------------------------------------------------------
+self.uinameImg.UITransformComponent.Scale.x = self.uiNameEntity.UITransformComponent.Scale.x + 0.1
 
--- void CheckText(number count)
+------------------------------------------------------------------------------------
+
 local Check_Text = self.npcTalkData:GetCell(5, self.name..math.floor(count)) -- 셀 5번을 추가해 스크립트의 끝부분 확인 
 
 if self.enable == true then 			-- 컴포넌트가 (비)활성화 판단
@@ -66,9 +60,8 @@ else self.uiTalkPanel.Enable = false	-- 대화창 종료
 	self.Enable = false
 end
 
-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
--- void CheckRUID(number count)
 -- 가져오는 RUID의 형태 판별
 local sprite_identify = self.npcTalkData:GetCell(4, self.name..math.floor(count))  -- 이미지 가져오기
 
@@ -77,7 +70,7 @@ if sprite_identify == "sprite_Anim" then
 	local PortraitAnim = _ResourceService:LoadAnimationClipAndWait(sprite)
 	for i,v in pairs(PortraitAnim.Frames) do -- anim프레임마다 크기 조절
 		self.SpriteSize = Vector2(v.FrameSprite.Width,v.FrameSprite.Height)
-		self.uiPortraitEntity.UITransformComponent.RectSize = self.SpriteSize * 2 -- mod에서 제공하는 animRUID는 사이즈 * 2
+		self.uiPortraitEntity.UITransformComponent.RectSize = self.SpriteSize * 1.5-- mod에서 제공하는 animRUID는 사이즈 * 5
 		break
 	end
 elseif sprite_identify == "sprite_IMG" then
@@ -88,4 +81,37 @@ elseif sprite_identify == "sprite_IMG" then
 	self.uiPortraitEntity.UITransformComponent.RectSize = self.SpriteSize -- 자체 제작한 이미지는 그냥 사용 
 end
 
-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+local key = event.key
+if key == KeyboardKey.Z then
+	self:CheckText(self.count)
+end
+
+------------------------------------------------------------------------------------
+
+local Entity = event.Entity
+-- 다음 버튼 실행 함수
+if Entity == self.uiNextButton then	
+	self:CheckText(self.count)
+end
+
+------------------------------------------------------------------------------------
+
+local Entity = event.Entity
+-- 종료 버튼 실행함수
+if Entity == self.uistopButton then
+	self.uiTalkPanel.Enable = false			-- 대화창 종료
+	self.Enable = false
+end
+
+------------------------------------------------------------------------------------
+
+local TriggerBodyEntity = event.TriggerBodyEntity
+self.Entity.Sub_Quest.enable = true -- 플레이어가 npc와 충돌하면 대화창 실행
+
+------------------------------------------------------------------------------------
+
+
+local TriggerBodyEntity = event.TriggerBodyEntity
+self.Entity.Sub_Quest.enable = false

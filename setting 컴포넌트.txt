@@ -1,0 +1,28 @@
+버튼 클릭 이벤트
+local Entity = event.Entity
+self.mouse_Curse.Mouse.Enable = true
+self.mouse_Curse.Mouse2.Enable = false
+self.mouse_Curse.SpriteGUIRendererComponent.ImageRUID = "affc2e651fad496783ae8ad9e148eb01"
+
+--------------------------------------------------------
+
+local Entity = event.Entity
+if self.set.Enable then
+	self.set.Enable = false
+else
+	self.set.Enable = true
+end
+
+--------------------------------------------------------
+
+local Entity = event.Entity
+self.mouse_Curse.Mouse2.Enable = true
+self.mouse_Curse.Mouse.Enable = false
+self.mouse_Curse.SpriteGUIRendererComponent.ImageRUID = "7913dc217ce54e3697e0a430916af5d2"
+
+--------------------------------------------------------
+
+local key = event.key
+if key == KeyboardKey.Escape then
+	self.set.Enable = false
+end
