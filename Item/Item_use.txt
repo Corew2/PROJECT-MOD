@@ -1,0 +1,7 @@
+아이템타입 컴포넌트
+void OnCreat () {
+	self.Name = self.ItemTableData:GetItem("Name")
+	self.MaxStackCount = tonumber(self.ItemTableData:GetItem("MaxStackCount"))
+	self.EffectAmount = tonumber(self.ItemTableData:GetItem("EffectAmount"))
+	log("Item is Created!")
+}

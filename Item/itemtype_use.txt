@@ -1,0 +1,23 @@
+일반 컴포넌트
+void OnBiginPlay (){
+	local myEntityPath = self.Entity.Path
+	_TimerService:SetTimerOnce(function()
+  	  --Path는 이 컴포넌트가 붙어있는 엔티티의 Path를 넣어줍니다.
+ 	   local myEntity = _EntityService:GetEntityByPath(myEntityPath)
+   	     myEntity:SetEnable(false)end, 300)
+}
+------------------------------------------------------------------------
+server
+void GetItem (Entity TriggerBodyEntity){
+	local myEntityPath = self.Entity.Path
+	local myEntity = _EntityService:GetEntityByPath(myEntityPath)
+	local Inventory = TriggerBodyEntity.InventoryComponent
+	if Inventory == nil then return end
+	local item = _ItemService:CreateItem(Item_use, self.Name,	Inventory)
+	myEntity:SetEnable(false)
+}
+------------------------------------------------------------------------
+TriggerEnterEvent (TriggerEnterEvent event){
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	self:GetItem(TriggerBodyEntity)
+}

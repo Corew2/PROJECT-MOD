@@ -1,27 +1,28 @@
-self.itemUI.Enable = false
-local closeButton = _EntityService:GetEntityByPath("/ui/DefaultGroup/bibang_Inventory/close_button") -- 종료버튼 경로
-local closeFunc = function()
-	self.Entity.Enable = false
-end
+OnBeginPlay(){
+	self.itemUI.Enable = false
+	local closeButton = _EntityService:GetEntityByPath("/ui/DefaultGroup/bibang_Inventory/close_button") -- 종료버튼 경로
+	local closeFunc = function()
+		self.Entity.Enable = false
+	end
 
-closeButton:ConnectEvent(ButtonClickEvent, closeFunc)
+	closeButton:ConnectEvent(ButtonClickEvent, closeFunc)
+}
 ----------------------------------------------------------------------------------
-
--- Parameters
-local key = event.key
-if key == KeyboardKey.Q then
-	if self.Entity.Enable == false then
-		self.Entity.Enable = true
-	else 
-		self.Entity.Enable = false
+KeyDownEvent(){
+	local key = event.key
+	if key == KeyboardKey.Q then
+		if self.Entity.Enable == false then
+			self.Entity.Enable = true
+		else 
+			self.Entity.Enable = false
+		end
 	end
-end
 
-if key == KeyboardKey.Escape then
-	if self.Entity.Enable == true then
-		self.Entity.Enable = false
+	if key == KeyboardKey.Escape then
+		if self.Entity.Enable == true then
+			self.Entity.Enable = false
+		end
 	end
-end
-
+}
 ----------------------------------------------------------------------------------
 

@@ -1,51 +1,34 @@
+keyDownEvent(){
+	local key = event.key
+	if key == KeyboardKey.Z then
+		self:CheckText(self.count)
+	end
+}
 -----------------------------------------
-
---keyDownEvent
--- Parameters
-local key = event.key
-if key == KeyboardKey.Z then
-	self:CheckText(self.count)
-end
-
------------------------------------------
-
--- entity NextButton 주소 
--- ButtonClickEvent
--- Parameters
-local Entity = event.Entity
 -- 다음 버튼 실행 함수
-if Entity == self.uiNextButton then	
-	self:CheckText(self.count)
-end
-
+ButtonClickEvent(){
+	local Entity = event.Entity
+	if Entity == self.uiNextButton then	
+		self:CheckText(self.count)
+	end
+}
 -----------------------------------------
-
--- TriggerStayEvent
--- Parameters
-local TriggerBodyEntity = event.TriggerBodyEntity
-log("충돌")
-self.Entity.NPC_Main_Talk.enable= true -- 플레이어가 npc와 충돌하면 대화창 실행
-
+TriggerStayEvent(){
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	self.Entity.Main_Quest.enable= true -- 플레이어가 npc와 충돌하면 대화창 실행
+}
 -----------------------------------------
-
---buttonClickEvent2
--- Parameters
-local Entity = event.Entity
--- 종료 버튼 실행함수
-if Entity == self.uistopButton then
-	self.uiTalkPanel.Enable = false			-- 대화창 종료
-	self.Enable = false
-end
-
+- 종료 버튼 실행함수
+buttonClickEvent(){
+	local Entity = event.Entity
+	if Entity == self.uistopButton then
+		self.uiTalkPanel.Enable = false			-- 대화창 종료
+		self.Enable = false
+	end
+}
 -----------------------------------------
-
---TriggerleaveEvent
--- Parameters
-local TriggerBodyEntity = event.TriggerBodyEntity
-self.Entity.Main_Quest.enable = false
-
+TriggerleaveEvent(){
+	local TriggerBodyEntity = event.TriggerBodyEntity
+	self.Entity.Main_Quest.enable = false
+}
 -----------------------------------------
-
--- Parameters
-local TriggerBodyEntity = event.TriggerBodyEntity
-self.Entity.Main_Quest.enable= true -- 플레이어가 npc와 충돌하면 대화창 실행

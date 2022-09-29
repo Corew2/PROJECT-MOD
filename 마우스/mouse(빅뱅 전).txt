@@ -1,6 +1,9 @@
-local mouse_position = _InputService:GetCursorPosition() -- 커서의 위치를 받는다
-_InputService:SetCursorVisible(true)
+void OnUpDate(number delta){
+마우스의 위치를 실시간으로 받아 빅뱅 전 커서의 이미지를 마우스의 위치와 동기화 시킨다.
+	local mouse_position = _InputService:GetCursorPosition() -- 커서의 위치를 받는다
+	_InputService:SetCursorVisible(true)
 
-self.Entity.TransformComponent.WorldPosition.x = mouse_position.x
-self.Entity.TransformComponent.WorldPosition.y = mouse_position.y
-self.Entity.TransformComponent.WorldPosition.z = 0
+	self.Entity.TransformComponent.WorldPosition.x = mouse_position.x
+	self.Entity.TransformComponent.WorldPosition.y = mouse_position.y
+	self.Entity.TransformComponent.WorldPosition.z = 0
+}

@@ -1,7 +1,6 @@
-ButtonStateChange
--- Parameters
-local state = event.state
---------------------------------------------------------
-if self.mouse.Mouse2.Enable then
-	self.mouse.SpriteGUIRendererComponent.ImageRUID = "16f3747383db4ad9809349d7daf91265"
-end
+ButtonStateChange(){
+	local state = event.state
+	if self.mouse.Mouse2.Enable then
+		self.mouse.SpriteGUIRendererComponent.ImageRUID = "16f3747383db4ad9809349d7daf91265"
+	end
+}
