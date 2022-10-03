@@ -1,5 +1,15 @@
+onbegin는 클라이엍르 온리
+나머지 전부 클라이언트
+------------------------------------------------------------------------------------
 OnBiginPlay(){
 	self.npcTalkData = _DataService:GetTable(self.name)  -- 퀘스트 테이블 가져오기
+	self.uiNameEntity = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)/NPC_Image/UIText")
+	self.uiMessageEntity = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)/UIText")
+	self.uiTalkPanel = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)")
+	self.uiPortraitEntity = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)/NPC_Image")
+	self.uiNextButton = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)/NextButton")
+	self.uistopButton = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)/StopButton")
+	self.uinameImg = _EntityService:GetEntityByPath("/ui/DefaultGroup/TalkPanel(Sub_Text)/NPC_Image/name")
 	--[[
 	self.uiNameEntity 				== 이름
 	self.uiMessageEntity 			== text창
@@ -85,13 +95,15 @@ void CheckRUID (number count){
 	end
 }
 ------------------------------------------------------------------------------------
-
+키다운 핸들러
 local key = event.key
 if key == KeyboardKey.Z then
 	self:CheckText(self.count)
 end
 
 ------------------------------------------------------------------------------------
+entity 다음 버튼 엔티티
+클릭 핸들러
 -- 다음 버튼 실행 함수
 local Entity = event.Entity
 if Entity == self.uiNextButton then	
@@ -99,6 +111,8 @@ if Entity == self.uiNextButton then
 end
 
 ------------------------------------------------------------------------------------
+entity  종료버튼 엔티티
+클릭 핸들러
 -- 종료 버튼 실행함수
 local Entity = event.Entity
 if Entity == self.uistopButton then
@@ -107,12 +121,14 @@ if Entity == self.uistopButton then
 end
 
 ------------------------------------------------------------------------------------
-
+self
+enter핸들러
 local TriggerBodyEntity = event.TriggerBodyEntity
 self.Entity.Sub_Quest.enable = true 			-- 플레이어가 npc와 충돌하면 대화창 실행
 
 ------------------------------------------------------------------------------------
-
+self
+triggerleave핸들러
 NPC와의 충돌에서 벗어날 때
 local TriggerBodyEntity = event.TriggerBodyEntity
 self.Entity.Sub_Quest.enable = false
