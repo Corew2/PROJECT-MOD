@@ -24,16 +24,42 @@
         - QuestComponent에서 UserDataStorage에 있는 유저가 진행중인 퀘스트의 정보를 불러옴 -> 퀘스트 정보에 맞는 QuestPanelLogic을 불러옴 -> 대화 출력 -> 대화 종료 후 UserDataStorage 업데이트
     
     7. Issue
-        - 페널 엔티티가 너무 많음 -> _EntityService:GetEntity()가 아닌 _SpawnService:SpawnByModelId()사용 고려했으나 _SpawnService:SpawnByModelId()는 ui가 아닌 map에 소환됨
+        - 페널 엔티티가 너무 많음 -> _EntityService:GetEntity()가 아닌 _SpawnService:SpawnByModelId()사용 고려했으나 _SpawnService:SpawnByModelId()는 ui가 아닌 map에 소환됨 --> ui에 소환되도록 변경
         - 출력 후 유저의 퀘스트 데이터를 업데이트 함.(로직을 분리해야 할 듯)
         - 퀘스트 관련 DataStorage미구현 -> 기획 완성 후 구현
         - esc키 관련 Issue(하나의 키를 누르면 관련된 모든 함수가 한꺼번에 실행)
 
 - 마우스 커서
     1. Mouse.MODPACKAGE 사용
+    2. 기존 마우스를 안 보이게 하고 마우스 엔티티를 덮어씌어 구현
+    3. ui엔티티에 ButtonComponent와 자체 제작한 Component를 추가하여 버튼 Hold 시 마우스 엔티티의 상태를 변경
+
+- 도도
+    1. 플레이어블 캐릭터에서 자식으로 생성
+    2. 기존 캐릭터는 안 보이게 하고 도도 스프라이트(엔티티)를 덮어 씌움
+    3. 기존 캐릭터의 state를 공유
+    4. 이미 만들어진 전투 로직과 인벤토리가 기존 캐릭터에 묶여있어 위 방식을 사용
+
+- KeyConfigLogic
+    1. KeyConfigLogic
+        - 유저 입장 시 해당 유저의 커스텀 키 세팅이 있는지 확인
+        - 없으면 디폴트 키 세팅을, 있으면 커스텀 한 키세팅을 불러와 KeyConfig테이블 구성
+        - SaveUserKeySetting() = 커스텀 한 키세팅을 저장하기 위한 함수
+        - SendServer() = 키 세팅을 데이터 스토리지로 보내기 위한 함수(SERVER)
+    2. KeyConfigScript
+        - 디폴트 키 세팅과 아이콘들의 실행 함수(event)를 담은 Script
+    3. IconCmponent
+        - UiMovingComponent를 확장한 Component
+        - 스킬 아이콘으로서 작동하기 위한 Component
+    4. SlotComponent
+        - 슬롯으로서 작동하기 위한 Component
+    5. KeyConfigComponent
+        - 아이콘과 슬롯이 원활하게 작동하기 위해 필요한 Component
+        - KeyConfigUI에 있음
+
 
 - etc.MODPACKAGE(기타 파일이 있음)
-    - 플레이어 움직임을 통제하는 Logic
+    - 플레이어 움직임을 통제하는 Logic --> 대화Logic 실행 시 사용
     - 스킬, 아이템 등의 정보를 보여주는 Component
     - 스킬, 아이템 등의 정보를 보여주는 ui Model
     - escKey 관련 Logic
